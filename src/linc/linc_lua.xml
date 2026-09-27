@@ -1,0 +1,77 @@
+<xml>
+	<files id='haxe'>
+		<compilerflag name="-I" value='${LINC_LUA_PATH}linc/' if="windows" />
+		<compilerflag name="-I" value='${LINC_LUA_PATH}/linc/' unless="windows" />
+
+		<file name='${LINC_LUA_PATH}linc/linc_lua.cpp' if="windows" />
+		<file name='${LINC_LUA_PATH}/linc/linc_lua.cpp' unless="windows" />
+
+		<file name='${LINC_LUA_PATH}linc/sscript_lua_hooks.cpp' if="windows" />
+		<file name='${LINC_LUA_PATH}/linc/sscript_lua_hooks.cpp' unless="windows" />
+	</files>
+
+	<files id="__main__">
+		<compilerflag name="-I" value='${LINC_LUA_PATH}linc/' if="windows" />
+		<compilerflag name="-I" value='${LINC_LUA_PATH}/linc/' unless="windows" />
+	</files>
+
+	<section>
+		<section if="windows" unless="mingw">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Windows, Architecture: x64, MinGW: No' if='HXCPP_M64' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Windows, Architecture: x86, MinGW: No' if='HXCPP_M32' />
+		</section>
+		<section if="mingw">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Windows, Architecture: x64, MinGW: Yes' if='HXCPP_M64' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Windows, Architecture: x86, MinGW: Yes' if='HXCPP_M32' />
+		</section>
+		<section if="linux">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Linux, Architecture: x64' if='HXCPP_M64' />
+		</section>
+		<section if="mac">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Mac, Architecture: arm64/x64' if='HXCPP_ARM64 || HXCPP_M64' />
+		</section>
+		<section if="android">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Android, Architecture: arm64-v8a' if='HXCPP_ARM64' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Android, Architecture: armeabi-v7a' if='HXCPP_ARMV7' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Android, Architecture: x86' if='HXCPP_X86' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: Android, Architecture: x86_64' if='HXCPP_X86_64' />
+		</section>
+		<section if="ios">
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: iOS, Architecture: arm64 (device)' if='iphoneos HXCPP_ARM64' />
+			<echo value='[linc_luajit_updated] Linked LuaJIT, Platform: iOS, Architecture: arm64 (simulator)' if='iphonesim HXCPP_ARM64' />
+		</section>
+	</section>
+
+	<target id="haxe">
+		<section if="windows" unless="mingw">
+			<lib name='${LINC_LUA_PATH}lib/lua/lib/Windows64/lua51.lib' if='HXCPP_M64' />
+			<lib name='${LINC_LUA_PATH}lib/lua/lib/Windows/lua51.lib' if='HXCPP_M32' />
+		</section>
+		<section if="mingw">
+			<lib name='${LINC_LUA_PATH}lib/lua/lib/Windows64/libluajit-5.1.a' if='HXCPP_M64' />
+			<lib name='${LINC_LUA_PATH}lib/lua/lib/Windows/libluajit-5.1.a' if='HXCPP_M32' />
+			<flag value="-fstack-protector" />
+		</section>
+		<section if="linux">
+			<lib name='${LINC_LUA_PATH}/lib/lua/lib/Linux64/libluajit.a' if='HXCPP_M64' />
+		</section>
+        <section if="mac">
+             <lib name='${LINC_LUA_PATH}/lib/lua/lib/Mac/libluajit-5.1.a' if='HXCPP_ARM64 || HXCPP_M64' />
+            <!-- <lib name='${LINC_LUA_PATH}/lib/lua/lib/Mac/libluajit-5.1.a' if='HXCPP_M32' /> -->
+        </section>
+		<section if="android">
+			<lib name="${LINC_LUA_PATH}/lib/lua/lib/Android/arm64-v8a/libluajit.a" if="HXCPP_ARM64" />
+			<lib name="${LINC_LUA_PATH}/lib/lua/lib/Android/armeabi-v7a/libluajit.a" if="HXCPP_ARMV7" />
+			<lib name="${LINC_LUA_PATH}/lib/lua/lib/Android/x86/libluajit.a" if="HXCPP_X86" />
+			<lib name="${LINC_LUA_PATH}/lib/lua/lib/Android/x86_64/libluajit.a" if="HXCPP_X86_64" />
+		</section>
+		<section if="ios">
+			<section if="iphoneos">
+				<lib name='${LINC_LUA_PATH}/lib/lua/lib/iPhone/libluajit.iphoneos-64.a' if='HXCPP_ARM64' />
+			</section>
+			<section if="iphonesim">
+				<lib name='${LINC_LUA_PATH}/lib/lua/lib/iPhone/libluajit.iphonesim-64.a' if='HXCPP_ARM64' />
+			</section>
+		</section>
+	</target>
+</xml>

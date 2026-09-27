@@ -1,10 +1,13 @@
 {
 	"name": "linc_luajit",
-	"url": "https://github.com/RudenkoArts/linc_luajit",
-	"license": "MIT",
-	"tags": ["lua","luajit","linc","bindings"],
-	"description": "Haxe/hxcpp @:native bindings for LuaJIT.",
-	"version": "0.0.6",
-	"releasenote": "",
-	"contributors": ["RudenkoArts"]
+	"url": "https://github.com/ThomasDarkson/linc_luajit_updated",
+	"license": "Apache",
+	"classPath": "src",
+	"tags": ["lua","luajit","linc","bindings", "sscript", "sscript_lua"],
+	"description": "Fork of linc_luajit, with new features. Updates regularly to rolling releases of LuaJIT (Current LuaJIT version: 2.1.1788856981)",
+	"version": "0.1.1788856981",
+	"releasenote": "Check CHANGELOG.md",
+	"contributors": ["ThomasDarkson"],
+	"dependencies": {
+	}
 }
